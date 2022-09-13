@@ -1,4 +1,5 @@
 "use strict";
+// Dictionary for kids to learn new vocabulary
 
 const DOMSelectors = {
   card: document.getElementById("card"),
