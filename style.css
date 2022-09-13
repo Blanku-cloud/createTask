@@ -15,6 +15,8 @@ body {
   margin-left: 20%;
   margin-right: 20%;
   position: relative;
+  transform-style: preserve-3d;
+  transition: all ease 1s;
 }
 
 .card {
@@ -26,18 +28,25 @@ body {
   align-items: center;
   border-radius: 2rem;
   background-color: #fff;
+  transform-style: preserve-3d;
 }
 
 .word {
   background-color: #fff;
-  font-size: 6rem;
+  font-size: 3.2rem;
 }
 
-.next {
+.back {
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  transform: rotateZ(180deg) rotateY(180deg);
+  backface-visibility: hidden;
+  width: 60rem;
+  text-align: center;
+}
+
+.def {
+  font-size: 3.2rem;
+  background-color: #fff;
 }
 
 .arrow {
@@ -48,6 +57,10 @@ body {
 }
 
 .next {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 40%;
   right: 3%;
   transition: all 1s;
@@ -55,4 +68,8 @@ body {
 
 .next:hover {
   transform: scale(1.5);
+}
+
+.flipCard {
+  transform: rotateZ(180deg) rotateY(180deg);
 }
