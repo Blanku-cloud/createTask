@@ -5,6 +5,8 @@ const DOMSelectors = {
   card: document.getElementById("card"),
   container: document.getElementById("container"),
   next: document.getElementById("next"),
+  arrow: document.getElementById("arrow"),
+  front: document.getElementById("front"),
 };
 
 DOMSelectors.card.addEventListener("click", flipCard);
@@ -23,3 +25,12 @@ const word = [
     def: "a period of twenty-four hours as a unit of time, reckoned from one midnight to the next, corresponding to a rotation of the earth on its axis.",
   },
 ];
+
+arrow.addEventListener("click", nextWord);
+
+function nextWord() {
+  DOMSelectors.front.insertAdjacentHTML(
+    "afterbegin",
+    `<h1 class="word">Acquiesce</h1>`
+  );
+}
