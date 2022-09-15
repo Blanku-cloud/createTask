@@ -7,6 +7,7 @@ const DOMSelectors = {
   next: document.getElementById("next"),
   arrow: document.getElementById("arrow"),
   front: document.getElementById("front"),
+  back: document.getElementById("back"),
 };
 
 DOMSelectors.card.addEventListener("click", flipCard);
@@ -15,16 +16,17 @@ function flipCard() {
   DOMSelectors.container.classList.toggle("flipCard");
 }
 
-const word = [
-  {
-    word: "candy",
-    def: "a sweet food made with sugar or other sweeteners, typically formed in small, shaped pieces and flavored with chocolate, fruit, or nuts",
-  },
-  {
-    word: "day",
-    def: "a period of twenty-four hours as a unit of time, reckoned from one midnight to the next, corresponding to a rotation of the earth on its axis.",
-  },
-];
+const randomAPI = "https://random-word-api.herokuapp.com/word";
+
+async function randomWord() {
+  try {
+    const response = await fetch(randomAPI).then((api) => api.json());
+    console.log(response[0]);
+  } catch {
+    console.log(error);
+  }
+}
+randomWord();
 
 arrow.addEventListener("click", nextWord);
 
@@ -32,5 +34,15 @@ function nextWord() {
   DOMSelectors.front.insertAdjacentHTML(
     "afterbegin",
     `<h1 class="word">Acquiesce</h1>`
+  );
+  nextDef();
+}
+
+function nextDef() {
+  DOMSelectors.back.insertAdjacentHTML(
+    "afterbegin",
+    ` <h2 class="def">
+        Accept something reluctantly but without protest.
+      </h2>`
   );
 }
