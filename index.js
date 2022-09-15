@@ -10,30 +10,35 @@ const DOMSelectors = {
   back: document.getElementById("back"),
 };
 
-DOMSelectors.card.addEventListener("click", flipCard);
-
-function flipCard() {
-  DOMSelectors.container.classList.toggle("flipCard");
-}
-
 const randomAPI = "https://random-word-api.herokuapp.com/word";
+let word = null;
+let def = null;
+
+window.addEventListener("load", randomWord);
 
 async function randomWord() {
   try {
-    const response = await fetch(randomAPI).then((api) => api.json());
-    console.log(response[0]);
+    const wordResponse = await fetch(randomAPI).then((api) => api.json());
+    word = wordResponse[0];
+    const defResponse = await fetch(
+      `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+    ).then((api) => api.json());
+    const def = defResponse[0];
+    const meaning = def.meanings;
+    console.log(def);
+    nextWord();
+    nextDef();
   } catch {
     console.log(error);
   }
 }
-randomWord();
 
 arrow.addEventListener("click", nextWord);
 
 function nextWord() {
   DOMSelectors.front.insertAdjacentHTML(
     "afterbegin",
-    `<h1 class="word">Acquiesce</h1>`
+    `<h1 class="word">${word}</h1>`
   );
   nextDef();
 }
@@ -45,4 +50,10 @@ function nextDef() {
         Accept something reluctantly but without protest.
       </h2>`
   );
+}
+
+DOMSelectors.card.addEventListener("click", flipCard);
+
+function flipCard() {
+  DOMSelectors.container.classList.toggle("flipCard");
 }
