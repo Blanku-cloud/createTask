@@ -23,11 +23,14 @@ async function randomWord() {
     const defResponse = await fetch(
       `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
     ).then((api) => api.json());
-    const def = defResponse[0];
-    const meaning = def.meanings;
+
+    if (defResponse.title === "No Definitions Found") {
+      randomWord();
+    }
+
+    def = defResponse[0].meanings[0].definitions[0].definition;
     console.log(def);
     nextWord();
-    nextDef();
   } catch {
     console.log(error);
   }
@@ -36,6 +39,7 @@ async function randomWord() {
 arrow.addEventListener("click", nextWord);
 
 function nextWord() {
+  DOMSelectors.front.innerHTML = "";
   DOMSelectors.front.insertAdjacentHTML(
     "afterbegin",
     `<h1 class="word">${word}</h1>`
@@ -44,16 +48,16 @@ function nextWord() {
 }
 
 function nextDef() {
+  DOMSelectors.back.innerHTML = "";
   DOMSelectors.back.insertAdjacentHTML(
     "afterbegin",
     ` <h2 class="def">
-        Accept something reluctantly but without protest.
+       ${def}
       </h2>`
   );
 }
 
 DOMSelectors.card.addEventListener("click", flipCard);
-
 function flipCard() {
   DOMSelectors.container.classList.toggle("flipCard");
 }

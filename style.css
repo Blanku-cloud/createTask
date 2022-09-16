@@ -54,6 +54,8 @@ body {
   width: 5rem;
   cursor: pointer;
   background-color: #fff;
+  backface-visibility: hidden;
+  bacface
 }
 
 .next {
