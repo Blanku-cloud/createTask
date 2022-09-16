@@ -36,7 +36,7 @@ async function randomWord() {
   }
 }
 
-arrow.addEventListener("click", nextWord);
+arrow.addEventListener("click", randomWord);
 
 function nextWord() {
   DOMSelectors.front.innerHTML = "";
