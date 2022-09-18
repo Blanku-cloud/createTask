@@ -31,9 +31,8 @@ async function randomWord() {
       randomWord();
     }
 
-    console.log(word);
     def = defResponse[0].meanings[0].definitions[0].definition;
-    console.log(def);
+
     nextWord();
   } catch {
     console.log(error);
