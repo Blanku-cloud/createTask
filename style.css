@@ -86,7 +86,6 @@ body {
   margin-top: 2%;
   margin-left: 20%;
   margin-right: 20%;
-  width: 86.4rem;
 }
 
 .saveWord {
@@ -119,6 +118,3 @@ body {
 .flipCard {
   transform: rotateZ(180deg) rotateY(180deg);
 }
-
-
-
