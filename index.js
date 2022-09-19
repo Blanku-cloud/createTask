@@ -8,11 +8,14 @@ const DOMSelectors = {
   arrow: document.getElementById("arrow"),
   front: document.getElementById("front"),
   back: document.getElementById("back"),
+  circle: document.getElementById("circle"),
+  wordCon: document.getElementById("wordCon"),
 };
 
 const randomAPI = "https://random-word-api.herokuapp.com/word";
 let word = null;
 let def = null;
+let wordArry = [];
 
 window.addEventListener("load", randomWord);
 
@@ -29,7 +32,7 @@ async function randomWord() {
     }
 
     def = defResponse[0].meanings[0].definitions[0].definition;
-    console.log(def);
+
     nextWord();
   } catch {
     console.log(error);
@@ -55,6 +58,23 @@ function nextDef() {
        ${def}
       </h2>`
   );
+}
+
+DOMSelectors.circle.addEventListener("click", saveWord);
+
+function saveWord() {
+  if (wordArry.includes(word)) {
+    return;
+  }
+
+  DOMSelectors.wordCon.insertAdjacentHTML(
+    "afterbegin",
+    `<div class="saveWord" id="wordSave">
+      <h4 class="vocab" id="vocab">${word}</h4>
+      <h4 class="deff">${def}</h4>
+    </div>`
+  );
+  wordArry.push(word);
 }
 
 DOMSelectors.card.addEventListener("click", flipCard);
