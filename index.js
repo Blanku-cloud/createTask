@@ -15,9 +15,14 @@ const DOMSelectors = {
 const randomAPI = "https://random-word-api.herokuapp.com/word";
 let word = null;
 let def = null;
-let wordArry = [];
+let vocabulary = [];
 
 window.addEventListener("load", randomWord);
+
+function Saved(saveWords, saveDefinition) {
+  this.saveWords = saveWords;
+  this.saveDefinition = saveDefinition;
+}
 
 async function randomWord() {
   try {
@@ -63,18 +68,24 @@ function nextDef() {
 DOMSelectors.circle.addEventListener("click", saveWord);
 
 function saveWord() {
-  if (wordArry.includes(word)) {
+  if (vocabulary.some((e) => e.saveWords === word)) {
     return;
   }
+  let obj = new Saved(word, def);
+  vocabulary.push(obj);
+  console.log(vocabulary);
 
-  DOMSelectors.wordCon.insertAdjacentHTML(
-    "afterbegin",
-    `<div class="saveWord" id="wordSave">
-      <h4 class="vocab" id="vocab">${word}</h4>
-      <h4 class="deff">${def}</h4>
+  DOMSelectors.wordCon.innerHTML = "";
+
+  vocabulary.forEach((e) => {
+    DOMSelectors.wordCon.insertAdjacentHTML(
+      "afterbegin",
+      `<div class="saveWord" id="wordSave">
+      <h4 class="vocab" id="vocab">${e.saveWords}</h4>
+      <h4 class="deff">${e.saveDefinition}</h4>
     </div>`
-  );
-  wordArry.push(word);
+    );
+  });
 }
 
 DOMSelectors.card.addEventListener("click", flipCard);
